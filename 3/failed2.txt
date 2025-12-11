@@ -1,0 +1,72 @@
+filename = 'test.txt'
+banks = list()
+
+with open(filename, 'r') as file:
+    for line in file:
+        banks.append(line.strip())
+    
+sum = 0    
+
+for bank in banks:
+    index_to_remove = set()
+
+    for index in range(1,10):
+        i = 0
+        while i < len(bank) and len(index_to_remove) < 3:
+            n = bank[i]
+            
+            if int(n) == index and i not in index_to_remove:
+                index_to_remove.add(i)
+                
+            i += 1
+    
+    for cur in sorted(index_to_remove, reverse=True):
+        bank = bank[:cur] + bank[cur+1:]
+        
+    print(bank)
+    sum += int(bank)
+        
+        
+        
+    
+print(sum)
+
+
+
+
+
+
+
+
+
+filename = 'test.txt'
+banks = list()
+
+with open(filename, 'r') as file:
+    for line in file:
+        banks.append(line.strip())
+    
+sum = 0    
+for bank in banks:
+    index_to_remove = set()
+    prev = None
+    for i, cur in enumerate(bank):
+        if len(index_to_remove) >= 3:
+            break
+        if prev == None:
+            prev = [bank[0],0]
+            continue
+
+        if cur >= prev[0]:
+            index_to_remove.add(prev[1])
+        prev[0] = cur
+        prev[1] = i
+        
+    for cur in sorted(index_to_remove, reverse=True):
+        bank = bank[:cur] + bank[cur+1:]
+    
+    bank = bank[:12]
+    print(bank)
+    sum += int(bank)
+    
+print(sum)
